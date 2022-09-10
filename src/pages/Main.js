@@ -1,7 +1,7 @@
 import { Button } from '@mui/material'
 import React, {useState} from 'react'
-import {useNavigate} from 'react-router-dom'
-import {Logout} from '../config/firebase'
+import {useNavigate, useHistory} from 'react-router-dom'
+import {Logout, createDataInfirebase} from '../config/firebase'
 
 const Page3 = () => {
     console.log('aaa')
@@ -24,6 +24,12 @@ const Page3 = () => {
                }
            }
     
+    const  createFunc = async () => {
+        console.log('start')
+        const res = await createDataInfirebase()
+        console.log('fin',res)
+        
+    }
     
     return(
         <div>
@@ -34,6 +40,11 @@ const Page3 = () => {
             onClick={handleClick}
             >
                 ログアウト
+            </Button>
+            <Button
+            onClick={createFunc}
+            >
+            DBへ保存
             </Button>
             <p>{error}</p>
         </div>

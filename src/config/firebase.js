@@ -1,6 +1,7 @@
+import { formControlUnstyledClasses } from '@mui/base';
 import { getApps,initializeApp } from 'firebase/app'
-import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,signOut,signInWithCustomToken } from "firebase/auth";
-
+import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,signOut,signInWithCustomToken, } from "firebase/auth";
+import {getFirestore, addDoc, collection} from 'firebase/firestore'
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
@@ -10,14 +11,7 @@ const firebaseConfig = {
     messagingSenderId: process.env.REACT_APP_MESSEAGING_SENDER_ID,
     appId: process.env.REACT_APP_APP_ID
 }
-
-
 const apps =  getApps
-
-
-
-
-
 if (!apps.length){
     initializeApp(firebaseConfig);
 }
@@ -124,4 +118,41 @@ signInWithCustomToken(auth, token)
     reject('failed')
   });
   })
+}
+
+export const db = getFirestore();
+
+// export const createDataInfirebase = async () => {
+//   let returnObj = ""
+//   console.log('firebase start')
+//   try {
+//     const docRef = await addDoc(collection(db,"users"), {
+//       first: "AdaAda",
+//       last: "Lovelace",
+//       born: 1815
+//     });  
+//     console.log("Document written with ID:", docRef.id);
+//     returnObj = "test1"
+//   }catch (e){
+//     returnObj = "test2"
+//     console.log("stest test test2")
+//     console.error("Error adding document", e);
+//   }
+//   console.log("test check")
+//   return returnObj
+// }
+
+export const createDataInfirebase = async () => {
+  console.log("ここｋにｈじゃ来ている")
+  try {
+    const docRef = await addDoc(collection(db, "users"), {
+      first: "Ada",
+      last: "Lovelace",
+      born: 1815
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+  
 }
